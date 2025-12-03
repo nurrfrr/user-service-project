@@ -52,11 +52,14 @@ public class UserServiceImpl implements UserService {
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
         GetUserByIdResponseDto responseDto = new GetUserByIdResponseDto();
-        BeanUtils.copyProperties(user, responseDto);
         responseDto.setResult(true);
+
+        UserDto userDto = convertUserToUserDto(user);
+        responseDto.setUser(userDto);
 
         return responseDto;
     }
+
 
     @Override
     public CreateUserResponseDto createUser(CreateUserRequestDto requestDto) {
